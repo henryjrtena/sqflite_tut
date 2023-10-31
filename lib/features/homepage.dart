@@ -37,7 +37,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final animals = await _db.getAnimals(null);
 
-    _animals.addAll(animals);
+    setState(() {
+      _animals.addAll(animals);
+    });
   }
 
   Future<void> addAnimals(String animalName) async {
