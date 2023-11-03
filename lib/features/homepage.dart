@@ -38,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final animals = await _db.getAnimals(null);
 
     setState(() {
+      _animals.clear();
       _animals.addAll(animals);
     });
   }
@@ -77,7 +78,6 @@ class _MyHomePageState extends State<MyHomePage> {
           _textField.clear();
 
           setState(() {
-            _animals.clear();
             getAnimals();
           });
         },
