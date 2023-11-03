@@ -13,12 +13,17 @@ class AnimalDatabaseHandler {
       join(await getDatabasesPath(), 'animals.db'),
       version: 1,
       onCreate: (db, version) {
-        return db.execute('''
+        db.execute('''
           CREATE TABLE $_tableName (
             $_columnId INTEGER PRIMARY KEY,
             $_columnTitle TEXT
-          )
+          );
         ''');
+
+        db.insert(_tableName, {_columnTitle: 'Ant'});
+        db.insert(_tableName, {_columnTitle: 'Bat'});
+        db.insert(_tableName, {_columnTitle: 'Cat'});
+        db.insert(_tableName, {_columnTitle: 'Dog'});
       },
     );
   }
@@ -30,15 +35,12 @@ class AnimalDatabaseHandler {
 
   Future<List<Map<String, dynamic>>> getAnimals(int? id) async {
     if (id != null) {
-      final maps = await db.query(_tableName,
-          columns: [_columnId, _columnTitle],
-          where: '$_columnId = ?',
-          whereArgs: [id]);
+      final maps =
+          await db.query(_tableName, columns: [_columnId, _columnTitle], where: '$_columnId = ?', whereArgs: [id]);
 
       return maps.isNotEmpty ? maps : [];
     } else {
-      final maps = await db.query(_tableName,
-          columns: [_columnId, _columnTitle]);
+      final maps = await db.query(_tableName, columns: [_columnId, _columnTitle]);
 
       return maps;
     }

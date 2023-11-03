@@ -71,6 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
+          if (_textField.text.isEmpty) return;
+
           await addAnimals(_textField.text);
           _textField.clear();
 
